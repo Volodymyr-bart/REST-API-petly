@@ -1,7 +1,5 @@
-// const auth = require("./auth");
 const auth = require("./auth");
+const news = require("./news");
+const services = require("./services-sidebar");
 
-// const users = require("./users");
-
-// module.exports = { auth, users };
-module.exports = { auth };
+module.exports = { auth, news, services };
