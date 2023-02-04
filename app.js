@@ -9,7 +9,7 @@ dotenv.config();
 
 const newsRouter = require("./routes/api/news");
 const noticesRouter = require("./routes/api/notices");
-const friendsRouter = require("./routes/api/friends");
+const servicesSidebarRouter = require("./routes/api/services-sidebar");
 const authRouter = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
 
@@ -23,7 +23,7 @@ app.use(express.json());
 
 app.use("/api/news", newsRouter);
 app.use("/api/notices", noticesRouter);
-app.use("/api/friends", friendsRouter);
+app.use("/api/services-sidebar", servicesSidebarRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
