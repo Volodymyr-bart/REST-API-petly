@@ -1,6 +1,14 @@
 const register = require("./register");
 const login = require("./login");
 const logout = require("./logout");
-const updateAvatar = require("./updateAvatar");
+const updateUser = require("./updateUser");
+const currentUser = require("./currentUser");
+const { ctrlWrapper } = require("../../helpers");
 
-module.exports = { register, login, logout, updateAvatar };
+module.exports = {
+  register: ctrlWrapper(register),
+  login: ctrlWrapper(login),
+  logout: ctrlWrapper(logout),
+  updateUser: ctrlWrapper(updateUser),
+  currentUser: ctrlWrapper(currentUser),
+};
