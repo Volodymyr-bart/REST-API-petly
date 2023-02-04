@@ -1,29 +1,36 @@
-// const { HttpError } = require("http-errors");
-// const { User } = require("../../models");
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
-// require("dotenv").config();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-// const { SECRET_KEY } = process.env;
+const { HttpError } = require("../../helpers");
+const { User } = require("../../models/user");
+
+const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-  //   const { email, password } = req.body;
-  //   const user = await User.findOne({ email });
-  //   if (!user) {
-  //     throw HttpError(401, `Email or password is wrong`);
-  //   }
-  //   if (!user.verify) {
-  //     throw HttpError(401, `Not verify`);
-  //   }
-  //   const passCompare = await bcrypt.compare(password, user.password);
-  //   if (!passCompare) {
-  //     throw HttpError(401, `Email or password is wrong`);
-  //   }
-  //   const payload = { id: user._id };
-  //   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: `23h` });
-  //   console.log("token", token);
-  //   await User.findByIdAndUpdate(user._id, { token });
-  //   res.json({ email: user.email, token });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw HttpError(401, "Email or password invalid"); // "Email invalid"
+  }
+
+  const passwordCompare = await bcrypt.compare(password, user.password);
+  if (!passwordCompare) {
+    throw HttpError(401, "Email or password invalid"); // "Password invalid"
+  }
+
+  const payload = {
+    id: user._id,
+  };
+
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(user._id, { token });
+
+  res.json({
+    token,
+    name: user.name,
+    email: user.email,
+  });
 };
 
 module.exports = login;
