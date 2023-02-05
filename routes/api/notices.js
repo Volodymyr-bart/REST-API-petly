@@ -1,5 +1,15 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const { ctrlWrapper } = require('../../helpers');
 
-router.get("/");
+const { notices: ctrl } = require('../../controllers');
+
+router.post('/', ctrlWrapper(ctrl.addNotice));
+
+router.get('/category/:showCategory', ctrlWrapper(ctrl.getNoticesByCategory));
+
+router.get('/:noticeId', ctrlWrapper(ctrl.getNoticeById));
+
+router.delete('/:noticeId', ctrlWrapper(ctrl.deleteNotice));
+
 module.exports = router;
