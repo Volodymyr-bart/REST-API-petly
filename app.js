@@ -33,6 +33,9 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err instanceof Error) {
+    return res.status(err.code).send(err.message);
+  }
   res.status(500).json({ message: err.message });
 });
 
