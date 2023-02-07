@@ -4,6 +4,8 @@ const { Notice } = require('../../models');
 const getNoticesByCategory = async (req, res, next) => {
   const { showCategory } = req.params;
 
+  console.log(req.headers.authorization);
+
   const noticesByCategory = await Notice.find({
     category: showCategory,
   });

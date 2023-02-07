@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-escape */
-const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+const { Schema, model } = require('mongoose');
+const Joi = require('joi');
 
-const phoneJoi = Joi.extend(require("joi-phone-number"));
+const phoneJoi = Joi.extend(require('joi-phone-number'));
 
-const { handleMongooseError } = require("../helpers");
+const { handleMongooseError } = require('../helpers');
 
 const emailRegexp =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -41,39 +41,40 @@ const userSchema = new Schema(
     token: {
       Type: String,
     },
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'notice' }],
   },
   { versionKey: false, timestamps: true }
 );
 
-userSchema.post("save", handleMongooseError);
+userSchema.post('save', handleMongooseError);
 
 const registerSchema = Joi.object({
   name: Joi.string()
     .pattern(nameRegexp)
     .required()
-    .messages({ "string.pattern.base": "Лише літери англійського алфавіту" }),
+    .messages({ 'string.pattern.base': 'Лише літери англійського алфавіту' }),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string()
     .pattern(passRegexp)
     .min(7)
     .max(32)
     .required()
-    .messages({ "string.pattern.base": "Пароль повинен бути без пробілів" }),
+    .messages({ 'string.pattern.base': 'Пароль повинен бути без пробілів' }),
   address: Joi.string(),
   phone: phoneJoi
     .string()
-    .phoneNumber({ defaultCountry: "UA", format: "national", strict: true }),
+    .phoneNumber({ defaultCountry: 'UA', format: 'national', strict: true }),
 });
 
 const updateSchema = Joi.object({
   name: Joi.string()
     .pattern(nameRegexp)
-    .messages({ "string.pattern.base": "Лише літери англійського алфавіту" }),
+    .messages({ 'string.pattern.base': 'Лише літери англійського алфавіту' }),
   email: Joi.string().pattern(emailRegexp),
   address: Joi.string(),
   phone: phoneJoi
     .string()
-    .phoneNumber({ defaultCountry: "UA", format: "national", strict: true }),
+    .phoneNumber({ defaultCountry: 'UA', format: 'national', strict: true }),
 });
 
 const loginSchema = Joi.object({
@@ -87,7 +88,7 @@ const schemas = {
   updateSchema,
 };
 
-const User = model("user", userSchema);
+const User = model('user', userSchema);
 
 module.exports = {
   User,
