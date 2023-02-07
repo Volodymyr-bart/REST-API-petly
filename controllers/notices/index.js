@@ -3,7 +3,9 @@ const deleteNotice = require('./deleteNotice');
 const getNoticeById = require('./getNoticeById');
 const getNoticesByCategory = require('./getNoticesByCategory');
 const addToFavorite = require('./addToFavorite');
-const removeFromFavorite = require('./removeFromFavorite')
+const removeFromFavorite = require('./removeFromFavorite');
+const getMyAdsCategory = require('./getMyAdsCategory');
+const getMyFavoriteAdsCategory = require('./getMyFavoriteAdsCategory');
 
 module.exports = {
   addNotice,
@@ -11,5 +13,7 @@ module.exports = {
   getNoticeById,
   getNoticesByCategory,
   addToFavorite,
-  removeFromFavorite
+  removeFromFavorite,
+  getMyAdsCategory,
+  getMyFavoriteAdsCategory,
 };

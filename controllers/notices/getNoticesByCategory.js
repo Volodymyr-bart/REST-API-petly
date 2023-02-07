@@ -2,20 +2,18 @@ const { HttpError } = require('../../helpers');
 const { Notice } = require('../../models');
 
 const getNoticesByCategory = async (req, res, next) => {
-  const { showCategory } = req.params;
+  const { _id } = req.params;
 
-  console.log(req.headers.authorization);
-
-  const noticesByCategory = await Notice.find({
-    category: showCategory,
+  const result = await Notice.find({
+    author: _id,
   });
 
-  if (!noticesByCategory) {
+  if (!result) {
     const error = HttpError(404);
     throw error;
   }
 
-  res.json({ status: 'success', code: 200, noticesByCategory });
+  res.json({ status: 'success', code: 200, result });
 };
 
 module.exports = getNoticesByCategory;
