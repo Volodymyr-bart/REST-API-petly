@@ -71,12 +71,7 @@ const noticeValidationSchema = Joi.object({
   comments: Joi.string().min(8).max(120).required(),
 });
 
-// const noticeToFavoriteValidationSchema = Joi.object({
-//   _id: Joi.string().required(),
-// });
-
 module.exports = {
   Notice,
   noticeValidationSchema,
-  // noticeToFavoriteValidationSchema,
 };
