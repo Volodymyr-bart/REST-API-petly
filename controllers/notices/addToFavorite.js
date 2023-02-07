@@ -1,4 +1,3 @@
-// const { Notice } = require('../../models');
 const { User } = require('../../models/user');
 
 const addToFavorite = async (req, res, next) => {
