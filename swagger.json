@@ -13,11 +13,7 @@
   "tags": [
     {
       "name": "auth",
-      "description": "Operations about user"
-    },
-    {
-      "name": "notices",
-      "description": "Notices Pets"
+      "description": "Authentication"
     },
     {
       "name": "news",
@@ -27,6 +23,11 @@
       "name": "services-sidebar",
       "description": "Our friends"
     },
+    {
+      "name": "notices",
+      "description": "Notices Pets"
+    },
+
     {
       "name": "users",
       "description": "Endpoint for user"
@@ -132,9 +133,7 @@
     "/notices": {
       "post": {
         "tags": ["notices"],
-        "summary": "Add notices",
-        "description": "Add notices",
-        "operationId": "addNotices",
+        "summary": "Додати оголошення",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -161,9 +160,8 @@
     "/notices/category/{showCategory}": {
       "post": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук за категорією",
+
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -190,9 +188,7 @@
     "/notices/ads/favorite": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук оголошення за категорією",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -219,9 +215,7 @@
     "/notices/ads/my": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук моїх оголошень",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -248,9 +242,7 @@
     "/notices/{noticeId}": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук оголошення по ІД",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -275,9 +267,7 @@
       },
       "delete": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Видалити оголошення",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -304,9 +294,7 @@
     "/notices/{noticeId}/favorite-add": {
       "patch": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Добавити оголошення до улюблених",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -333,9 +321,7 @@
     "/notices/{noticeId}/favorite-remove": {
       "patch": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Видалити оголошення з улюблених",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -362,9 +348,7 @@
     "/services-sidebar": {
       "get": {
         "tags": ["services-sidebar"],
-        "summary": "",
-        "description": "",
-        "operationId": "getFriends",
+        "summary": "Партнери",
         "produces": ["application/json"],
         "parameters": [],
         "responses": {
@@ -377,9 +361,7 @@
     "/news": {
       "get": {
         "tags": ["news"],
-        "summary": "",
-        "description": "",
-        "operationId": "getNews",
+        "summary": "Новини",
         "produces": ["application/json"],
         "parameters": [],
         "responses": {
@@ -392,9 +374,7 @@
     "/users/current": {
       "get": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Інформація про поточного користувача",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -421,9 +401,7 @@
     "/users/add-pets": {
       "post": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Додавання тваринки",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -450,9 +428,8 @@
     "/users/delete/:petId": {
       "delete": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Видалення тваринки",
+
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
