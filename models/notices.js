@@ -42,6 +42,7 @@ const noticeShema = Schema(
     },
     petAvatar: {
       type: String,
+      default: null,
     },
     comments: {
       type: String,
