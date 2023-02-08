@@ -22,6 +22,7 @@
     "kareem": "^2.5.1",
     "mongoose": "^6.9.0",
     "morgan": "1.10.0",
+    "swagger-ui": "^4.15.5",
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
