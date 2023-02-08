@@ -9,15 +9,11 @@
   "produces": ["application/json"],
   "servers": [{ "url": "https://petly-mmyb.onrender.com" }, { "url": "http://localhost:3001/" }],
   "host": "petstore.swagger.io",
-  "basePath": "/v2",
+
   "tags": [
     {
       "name": "auth",
-      "description": "Operations about user"
-    },
-    {
-      "name": "notices",
-      "description": "Notices Pets"
+      "description": "Authentication"
     },
     {
       "name": "news",
@@ -28,6 +24,11 @@
       "description": "Our friends"
     },
     {
+      "name": "notices",
+      "description": "Notices Pets"
+    },
+
+    {
       "name": "users",
       "description": "Endpoint for user"
     }
@@ -37,28 +38,24 @@
     "/auth/checkEmail": {
       "post": {
         "tags": ["auth"],
-        "summary": "Check email",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
+        "summary": "Перевірка email",
+        "requestBody": {
+          "summary": "Check object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/CheckRequest"
               }
             }
           }
-        ],
+        },
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "OK, email не використовується"
+          },
+          "409": {
+            "description": "Користувач з такою електронною адресою вже зареєстрований у системі"
           }
         }
       }
@@ -66,28 +63,27 @@
     "/auth/register": {
       "post": {
         "tags": ["auth"],
-        "summary": "Create user",
+        "summary": "Створення користувача",
         "description": "",
-        "operationId": "createUsersWithArrayInput",
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
+        "requestBody": {
+          "summary": "Register user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/RegisterRequest"
               }
             }
           }
-        ],
+        },
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "201": {
+            "description": "Користувач створений"
+          },
+          "409": {
+            "description": "Користувач з такою електронною адресою вже зареєстрований у системі"
           }
         }
       }
@@ -95,47 +91,26 @@
     "/auth/login": {
       "post": {
         "tags": ["auth"],
-        "summary": "Logs user into the system",
-        "description": "",
-        "operationId": "loginUser",
-        "produces": ["application/json", "application/xml"],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "description": "The user name for login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password for login in clear text",
-            "required": true,
-            "type": "string"
+        "summary": "Ендпоінт для логанізації",
+        "description": "Ендпоінт для логанізації",
+        "produces": ["application/json"],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/LoginRequest"
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "successful operation",
-            "headers": {
-              "X-Expires-After": {
-                "type": "string",
-                "format": "date-time",
-                "description": "date in UTC when token expires"
-              },
-              "X-Rate-Limit": {
-                "type": "integer",
-                "format": "int32",
-                "description": "calls per hour allowed by the user"
-              }
-            },
-            "schema": {
-              "type": "string"
-            }
+            "description": "Користувач ввійшов"
           },
-          "400": {
-            "description": "Invalid username/password supplied"
+          "401": {
+            "description": "Емеіл чи пароль невірний"
           }
         }
       }
@@ -143,14 +118,14 @@
     "/auth/logout": {
       "post": {
         "tags": ["auth"],
-        "summary": "Logs out current logged in user session",
+        "summary": "Логаут",
         "description": "",
-        "operationId": "logoutUser",
+
         "produces": ["application/json", "application/xml"],
         "parameters": [],
         "responses": {
           "default": {
-            "description": "successful operation"
+            "description": "Операція успішна"
           }
         }
       }
@@ -158,9 +133,7 @@
     "/notices": {
       "post": {
         "tags": ["notices"],
-        "summary": "Add notices",
-        "description": "Add notices",
-        "operationId": "addNotices",
+        "summary": "Додати оголошення",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -187,9 +160,8 @@
     "/notices/category/{showCategory}": {
       "post": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук за категорією",
+
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -216,9 +188,7 @@
     "/notices/ads/favorite": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук оголошення за категорією",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -245,9 +215,7 @@
     "/notices/ads/my": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук моїх оголошень",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -274,9 +242,7 @@
     "/notices/{noticeId}": {
       "get": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Пошук оголошення по ІД",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -301,9 +267,7 @@
       },
       "delete": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Видалити оголошення",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -330,9 +294,7 @@
     "/notices/{noticeId}/favorite-add": {
       "patch": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Добавити оголошення до улюблених",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -359,9 +321,7 @@
     "/notices/{noticeId}/favorite-remove": {
       "patch": {
         "tags": ["notices"],
-        "summary": "Find notices by category",
-        "description": "Find notices",
-        "operationId": "findNotices",
+        "summary": "Видалити оголошення з улюблених",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -388,9 +348,7 @@
     "/services-sidebar": {
       "get": {
         "tags": ["services-sidebar"],
-        "summary": "",
-        "description": "",
-        "operationId": "getFriends",
+        "summary": "Партнери",
         "produces": ["application/json"],
         "parameters": [],
         "responses": {
@@ -403,9 +361,7 @@
     "/news": {
       "get": {
         "tags": ["news"],
-        "summary": "",
-        "description": "",
-        "operationId": "getNews",
+        "summary": "Новини",
         "produces": ["application/json"],
         "parameters": [],
         "responses": {
@@ -418,9 +374,7 @@
     "/users/current": {
       "get": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Інформація про поточного користувача",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -447,9 +401,7 @@
     "/users/add-pets": {
       "post": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Додавання тваринки",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -476,9 +428,8 @@
     "/users/delete/:petId": {
       "delete": {
         "tags": ["users"],
-        "summary": "Users",
-        "description": "Check email in database",
-        "operationId": "CheckEmail",
+        "summary": "Видалення тваринки",
+
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -500,6 +451,70 @@
             "description": "successful operation"
           }
         }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "CheckRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Check email in database",
+            "format": "email"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": ["email", "password", "name"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Check email in database",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password"
+          },
+          "name": {
+            "type": "string",
+            "description": "name"
+          },
+          "address": {
+            "type": "string",
+            "description": "address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "phone"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "schema": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },
