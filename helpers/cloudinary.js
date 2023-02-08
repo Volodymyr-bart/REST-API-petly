@@ -8,4 +8,13 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET,
 });
 
-module.exports = cloudinary;
+const makeImgUrl = async (file, folder, width, height) => {
+  const avatar = await cloudinary.uploader.upload(file, {
+    folder,
+    width,
+    height,
+    crop: 'fill',
+  });
+  return avatar.secure_url;
+};
+module.exports = makeImgUrl;

@@ -23,6 +23,7 @@ const userPetsSchema = new Schema(
     },
     photo: {
       type: String,
+      default: null,
     },
     comments: {
       type: String,

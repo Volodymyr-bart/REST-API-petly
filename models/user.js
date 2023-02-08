@@ -41,6 +41,10 @@ const userSchema = new Schema(
     token: {
       Type: String,
     },
+    userAvatar: {
+      type: String,
+      default: null,
+    },
     favorites: [{ type: Schema.Types.ObjectId, ref: 'notice' }],
   },
   { versionKey: false, timestamps: true }
@@ -75,6 +79,7 @@ const updateSchema = Joi.object({
   phone: phoneJoi
     .string()
     .phoneNumber({ defaultCountry: 'UA', format: 'national', strict: true }),
+  userAvatar: Joi.string(),
 });
 
 const loginSchema = Joi.object({
