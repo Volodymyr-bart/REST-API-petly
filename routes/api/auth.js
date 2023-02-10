@@ -17,18 +17,7 @@ router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 // router.get("/current", authenticate, ctrl.currentUser);
 
 // check email in DB
-router.post(
-  "/checkEmail",
-  validateBody(schemas.checkEmailSchema),
-  ctrl.checkEmail
-);
-
-router.patch(
-  "/users",
-  validateBody(schemas.updateSchema),
-  authenticate,
-  ctrl.updateUser
-);
+router.post("/checkEmail", validateBody(schemas.checkEmailSchema), ctrl.checkEmail);
 
 router.post("/logout", authenticate, ctrl.logout);
 
