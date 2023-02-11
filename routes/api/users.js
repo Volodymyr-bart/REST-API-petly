@@ -13,12 +13,18 @@ router.get("/current", authenticate, ctrl.currentUser);
 router.post(
   "/add-pets",
   authenticate,
-  upload.single("userAvatar"),
+  upload.single("photo"),
   validateBody(userPetsValidationSchema),
   ctrl.addUserPet
 );
 
-router.patch("/update", validateBody(schemas.updateSchema), authenticate, ctrl.updateUser);
+router.patch(
+  "/update",
+  authenticate,
+  upload.single("userAvatar"),
+  validateBody(schemas.updateSchema),
+  ctrl.updateUser
+);
 
 router.delete("/delete/:petId", authenticate, ctrl.deleteUserPet);
 
