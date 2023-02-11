@@ -10,17 +10,18 @@ const updateUser = async (req, res) => {
   if (file) {
     const path = file.path;
     userAvatar = await uploadToCloudinary(path, 'userAvatars', 233, 233);
-  }
-
-  const user = await User.findByIdAndUpdate(
-    _id,
-    { body, userAvatar },
-    {
+    User.findByIdAndUpdate(_id, userAvatar, {
       new: true,
       runValidators: true,
       context: 'query',
-    }
-  );
+    });
+  }
+
+  const user = await User.findByIdAndUpdate(_id, body, {
+    new: true,
+    runValidators: true,
+    context: 'query',
+  });
 
   if (!user) res.status(404);
 
