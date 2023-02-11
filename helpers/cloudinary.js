@@ -1,4 +1,5 @@
 const cloudinary = require('cloudinary').v2;
+const fs = require('fs');
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
   process.env;
 
@@ -8,13 +9,25 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET,
 });
 
-const makeImgUrl = async (file, folder, width, height) => {
-  const avatar = await cloudinary.uploader.upload(file, {
-    folder,
-    width,
-    height,
-    crop: 'fill',
-  });
-  return avatar.secure_url;
-};
-module.exports = makeImgUrl;
+function uploadToCloudinary(locaFilePath, folder, width, height) {
+  return cloudinary.uploader
+    .upload(locaFilePath, {
+      folder: folder,
+      width,
+      height,
+      crop: 'fill',
+    })
+    .then((result) => {
+      fs.unlinkSync(locaFilePath);
+      return {
+        publickId: result.public_id,
+        url: result.secure_url,
+      };
+    })
+    .catch((error) => {
+      fs.unlinkSync(locaFilePath);
+      return { message: 'Fail', error };
+    });
+}
+
+module.exports = uploadToCloudinary;

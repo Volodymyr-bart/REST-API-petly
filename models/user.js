@@ -48,7 +48,7 @@ const userSchema = new Schema(
       Type: String,
     },
     userAvatar: {
-      type: String,
+      type: Object,
       default: null,
     },
     favorites: [{ type: Schema.Types.ObjectId, ref: 'notice' }],

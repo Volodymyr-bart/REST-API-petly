@@ -41,7 +41,7 @@ const noticeShema = Schema(
       required: true,
     },
     petAvatar: {
-      type: String,
+      type: Object,
       default: null,
     },
     comments: {
@@ -68,7 +68,7 @@ const noticeValidationSchema = Joi.object({
   theSex: Joi.string(),
   location: Joi.string(),
   price: Joi.string().pattern(numberRegexp).required(),
-  petAvatar: Joi.string(),
+  // petAvatar: Joi.string(),
   comments: Joi.string().min(8).max(120).required(),
 });
 

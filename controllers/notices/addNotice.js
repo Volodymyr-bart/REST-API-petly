@@ -1,16 +1,20 @@
 const { Notice } = require('../../models');
-const { makeImgUrl } = require('../../helpers');
+const { uploadToCloudinary } = require('../../helpers');
 
 const addNotice = async (req, res, next) => {
   const { _id } = req.user;
-  const { petAvatar } = req.body;
+  const { body, file } = req;
 
-  if (petAvatar) {
-    req.body.petAvatar = await makeImgUrl(petAvatar, 'petAvatars', 300, 300);
+  let petAvatar = null;
+
+  if (file) {
+    const path = file.path;
+    petAvatar = await uploadToCloudinary(path, 'petAvatars', 300, 300);
   }
 
   const result = await Notice.create({
-    ...req.body,
+    ...body,
+    petAvatar,
     author: _id,
   });
 
