@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ctrlWrapper } = require('../../helpers');
 const { validateBody, authenticate } = require('../../middlewares');
+const upload = require('../../middlewares/multer');
 
 const { notices: ctrl } = require('../../controllers');
 const { noticeValidationSchema } = require('../../models/notices');
@@ -10,6 +11,7 @@ const { noticeValidationSchema } = require('../../models/notices');
 router.post(
   '/',
   authenticate,
+  upload.single('petAvatar'),
   validateBody(noticeValidationSchema),
   ctrlWrapper(ctrl.addNotice)
 );

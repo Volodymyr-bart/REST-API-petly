@@ -22,7 +22,7 @@ const userPetsSchema = new Schema(
       required: true,
     },
     photo: {
-      type: String,
+      type: Object,
       default: null,
     },
     comments: {
@@ -42,7 +42,7 @@ const userPetsValidationSchema = Joi.object({
   name: Joi.string().min(2).max(16).pattern(textRegexp).required(),
   birthday: Joi.string().pattern(dateRegexp).required(),
   breed: Joi.string().min(2).max(16).pattern(textRegexp).required(),
-  photo: Joi.string(),
+  // photo: Joi.string(),
   comments: Joi.string().min(8).max(120).required(),
 });
 
