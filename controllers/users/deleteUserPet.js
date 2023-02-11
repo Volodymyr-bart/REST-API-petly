@@ -1,5 +1,5 @@
-const { HttpError } = require('../../helpers');
-const { UserPet } = require('../../models');
+const { HttpError } = require("../../helpers");
+const { UserPet } = require("../../models");
 
 const deleteUserPet = async (req, res, next) => {
   const { petId } = req.params;
@@ -7,11 +7,11 @@ const deleteUserPet = async (req, res, next) => {
   const result = await UserPet.findByIdAndRemove(petId);
 
   if (!result) {
-    throw HttpError(404, 'Notice not found');
+    throw HttpError(404, "Notice not found");
   }
 
   res.json({
-    status: 'success',
+    status: "success",
     code: 200,
     result,
   });

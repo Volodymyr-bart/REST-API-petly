@@ -1,21 +1,20 @@
-const { Schema, model } = require('mongoose');
-const Joi = require('joi');
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const textRegexp = /^[a-z ,.'-]+$/i;
-const dateRegexp =
-  /(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\d\d/;
+const dateRegexp = /(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\d\d/;
 const numberRegexp = /^[1-9]\d*$/;
 
 const noticeShema = Schema(
   {
     category: {
       type: String,
-      enum: ['lost-found', 'in-good-hands', 'sell', 'favorite-ads', 'my-ads'],
+      enum: ["lost-found", "in-good-hands", "sell", "favorite-ads", "my-ads"],
       required: true,
     },
     title: {
       type: String,
-      required: [true, 'Set title for notice'],
+      required: [true, "Set title for notice"],
     },
     name: {
       type: String,
@@ -29,7 +28,7 @@ const noticeShema = Schema(
     },
     theSex: {
       type: String,
-      enum: ['male', 'female'],
+      enum: ["male", "female"],
       required: true,
     },
     location: {
@@ -50,14 +49,14 @@ const noticeShema = Schema(
     },
     author: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
     },
   },
   { versionKey: false, timestamps: true }
 );
 
-const Notice = model('notice', noticeShema);
+const Notice = model("notice", noticeShema);
 
 const noticeValidationSchema = Joi.object({
   category: Joi.string(),

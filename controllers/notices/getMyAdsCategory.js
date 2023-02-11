@@ -1,4 +1,4 @@
-const { Notice } = require('../../models');
+const { Notice } = require("../../models");
 
 const getMyAdsCategory = async (req, res) => {
   const { _id } = req.user;
@@ -6,7 +6,7 @@ const getMyAdsCategory = async (req, res) => {
   const result = await Notice.find({ author: _id });
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     code: 201,
     result,
   });
