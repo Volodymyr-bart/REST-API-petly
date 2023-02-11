@@ -13,6 +13,9 @@ const nameRegexp = /^[a-z ,.'-]+$/i;
 
 const passRegexp = /^\S+$/;
 
+const dateRegexp =
+  /(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\d\d/;
+
 const userSchema = new Schema(
   {
     name: {
@@ -37,6 +40,9 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
+    },
+    birthday: {
+      type: Date,
     },
     token: {
       Type: String,
@@ -79,6 +85,7 @@ const updateSchema = Joi.object({
   phone: phoneJoi
     .string()
     .phoneNumber({ defaultCountry: 'UA', format: 'national', strict: true }),
+  birthday: Joi.string().pattern(dateRegexp),
   userAvatar: Joi.string(),
 });
 
