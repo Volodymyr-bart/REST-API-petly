@@ -1,10 +1,9 @@
 /* eslint-disable no-useless-escape */
-const { Schema, model } = require('mongoose');
-const Joi = require('joi');
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const textRegexp = /^[a-z ,.'-]+$/i;
-const dateRegexp =
-  /(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\d\d/;
+const dateRegexp = /(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\d\d/;
 
 const userPetsSchema = new Schema(
   {
@@ -31,7 +30,7 @@ const userPetsSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
     },
   },
@@ -46,7 +45,7 @@ const userPetsValidationSchema = Joi.object({
   comments: Joi.string().min(8).max(120).required(),
 });
 
-const UserPet = model('userPet', userPetsSchema);
+const UserPet = model("userPet", userPetsSchema);
 
 module.exports = {
   UserPet,

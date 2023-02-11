@@ -1,5 +1,5 @@
-const { User } = require('../../models/user');
-const { uploadToCloudinary } = require('../../helpers');
+const { User } = require("../../models/user");
+const { uploadToCloudinary } = require("../../helpers");
 
 const updateUser = async (req, res) => {
   const { _id } = req.user;
@@ -9,18 +9,18 @@ const updateUser = async (req, res) => {
 
   if (file) {
     const path = file.path;
-    userAvatar = await uploadToCloudinary(path, 'userAvatars', 233, 233);
+    userAvatar = await uploadToCloudinary(path, "userAvatars", 233, 233);
     User.findByIdAndUpdate(_id, userAvatar, {
       new: true,
       runValidators: true,
-      context: 'query',
+      context: "query",
     });
   }
 
   const user = await User.findByIdAndUpdate(_id, body, {
     new: true,
     runValidators: true,
-    context: 'query',
+    context: "query",
   });
 
   if (!user) res.status(404);

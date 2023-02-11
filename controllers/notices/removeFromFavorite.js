@@ -1,4 +1,4 @@
-const { User } = require('../../models/user');
+const { User } = require("../../models/user");
 
 const removeFromFavorite = async (req, res, next) => {
   const { _id } = req.user;
@@ -11,7 +11,7 @@ const removeFromFavorite = async (req, res, next) => {
   );
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     code: 201,
     result,
   });

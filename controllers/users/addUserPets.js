@@ -1,5 +1,5 @@
-const { UserPet } = require('../../models');
-const { uploadToCloudinary } = require('../../helpers');
+const { UserPet } = require("../../models");
+const { uploadToCloudinary } = require("../../helpers");
 
 const addUserPet = async (req, res, next) => {
   const { _id } = req.user;
@@ -9,13 +9,13 @@ const addUserPet = async (req, res, next) => {
 
   if (file) {
     const path = file.path;
-    photo = await uploadToCloudinary(path, 'petsPhotos', 320, 320);
+    photo = await uploadToCloudinary(path, "petsPhotos", 320, 320);
   }
 
   const result = await UserPet.create({ ...body, photo, owner: _id });
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     code: 201,
     result,
   });

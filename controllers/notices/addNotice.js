@@ -1,5 +1,5 @@
-const { Notice } = require('../../models');
-const { uploadToCloudinary } = require('../../helpers');
+const { Notice } = require("../../models");
+const { uploadToCloudinary } = require("../../helpers");
 
 const addNotice = async (req, res, next) => {
   const { _id } = req.user;
@@ -9,7 +9,7 @@ const addNotice = async (req, res, next) => {
 
   if (file) {
     const path = file.path;
-    petAvatar = await uploadToCloudinary(path, 'petAvatars', 300, 300);
+    petAvatar = await uploadToCloudinary(path, "petAvatars", 300, 300);
   }
 
   const result = await Notice.create({
@@ -19,7 +19,7 @@ const addNotice = async (req, res, next) => {
   });
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     code: 201,
     result,
   });

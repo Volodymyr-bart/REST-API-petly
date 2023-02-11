@@ -1,5 +1,5 @@
-const { HttpError } = require('../../helpers');
-const { Notice } = require('../../models');
+const { HttpError } = require("../../helpers");
+const { Notice } = require("../../models");
 
 const getNoticeById = async (req, res, next) => {
   const { noticeId } = req.params;
@@ -11,7 +11,7 @@ const getNoticeById = async (req, res, next) => {
     throw error;
   }
 
-  res.json({ status: 'success', code: 200, notice });
+  res.json({ status: "success", code: 200, notice });
 };
 
 module.exports = getNoticeById;

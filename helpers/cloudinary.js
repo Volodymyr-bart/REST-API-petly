@@ -1,7 +1,6 @@
-const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
-const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
-  process.env;
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
 
 cloudinary.config({
   cloud_name: CLOUDINARY_CLOUD_NAME,
@@ -15,7 +14,7 @@ function uploadToCloudinary(locaFilePath, folder, width, height) {
       folder: folder,
       width,
       height,
-      crop: 'fill',
+      crop: "fill",
     })
     .then((result) => {
       fs.unlinkSync(locaFilePath);
@@ -26,7 +25,7 @@ function uploadToCloudinary(locaFilePath, folder, width, height) {
     })
     .catch((error) => {
       fs.unlinkSync(locaFilePath);
-      return { message: 'Fail', error };
+      return { message: "Fail", error };
     });
 }
 
