@@ -1,7 +1,7 @@
 const { UserPet } = require("../../models");
 
 const getCurrent = async (req, res) => {
-  const { email, name, address, phone, birthday, _id } = req.user;
+  const { email, name, address, phone, birthday, _id, userAvatar } = req.user;
 
   const userPetsList = await UserPet.find({
     owner: _id,
@@ -14,6 +14,7 @@ const getCurrent = async (req, res) => {
     phone,
     birthday,
     userPetsList,
+    userAvatar,
   });
 };
 
