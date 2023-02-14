@@ -27,6 +27,11 @@ const getNoticeById = async (req, res, next) => {
 
   const authorData = await User.findById(author);
 
+  let authorContacts = null;
+  if (authorData) {
+    authorContacts = { email: authorData.email, phone: authorData.phone };
+  }
+
   const result = await {
     category,
     title,
@@ -38,7 +43,7 @@ const getNoticeById = async (req, res, next) => {
     price,
     petAvatar,
     comments,
-    author: { email: authorData.email, phone: authorData.phone },
+    author: authorContacts,
   };
 
   res.json({
